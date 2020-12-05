@@ -1,6 +1,7 @@
 <template>
   <div>
     <p>Home page</p>
+    <input type="file" @change="onFileSelected">
     <p>Random number from backend: {{ randomNumber }}</p>
     <button @click="getRandom">New random number</button>
   </div>
@@ -15,6 +16,9 @@ export default {
     }
   },
   methods: {
+    onFileSelected(event) {
+      console.log(event)
+    },
     getRandom () {
       // this.randomNumber = this.getRandomInt(1, 100)
       this.randomNumber = this.getRandomFromBackend()
