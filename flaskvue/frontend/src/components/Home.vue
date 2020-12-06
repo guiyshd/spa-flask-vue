@@ -1,36 +1,46 @@
 <template>
   <div>
-    <p>Home page</p>
-    <input type="file" @change="onFileSelected">
-    <p>Random number from backend: {{ randomNumber }}</p>
-    <button @click="getRandom">New random number</button>
+    <div class="imgContent">
+      <div class="imagePreview">
+        <img :src="uploadedImage" style="width:100%;" />
+      </div>
+      <input type="file" class="file_input" name="photo" @change="onFileChange"  accept="image/*" />
+      <button @click='onUploadImage'>Please judge the image ...</button>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+
+const API_URL = 'http://127.0.0.1:5000'
 export default {
   data () {
     return {
-      randomNumber: 0
+      uploadedImage: ''
     }
   },
   methods: {
-    onFileSelected(event) {
-      console.log(event)
+    //Reflect the selected image
+    onFileChange (e) {
+      let files = e.target.files || e.dataTransfer.files
+      this.createImage(files[0])
     },
-    getRandom () {
-      // this.randomNumber = this.getRandomInt(1, 100)
-      this.randomNumber = this.getRandomFromBackend()
+    //View uploaded image
+    createImage (file) {
+      let reader = new FileReader()
+      reader.onload = (e) => {
+        this.uploadedImage = e.target.result
+      }
+      reader.readAsDataURL(file)
     },
-    getRandomFromBackend () {
-      const path = `http://localhost:5000/api/random`
-      axios.get(path)
-      .then(response => {
-        this.randomNumber = response.data.randomNumber
-      })
-      .catch(error => {
-        console.log(error)
+    //Upload image to server
+    onUploadImage () {
+      var params = new FormData()
+      params.append('image', this.uploadedImage)
+      //I am posting the data converted to FormData using Axios to Flask.
+      axios.post(`${API_URL}/classification`, params).then(function (response) {
+        console.log(response)
       })
     }
   }
