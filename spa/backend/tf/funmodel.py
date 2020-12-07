@@ -27,9 +27,8 @@ def gen_teste(path):
     yield (np.array(batch, np.float32))
 
 
-
 def ret_dic():
-    with open('dict.txt','r') as file:
+    with open('backend/tf/dict.txt','r') as file:
         class_dict = eval(file.read())
     return class_dict
 

@@ -1,16 +1,18 @@
 import tensorflow as tf
 from .funmodel import gen_teste, proc_res
+import json
 
 
 def load():
     try:
-        model = tf.keras.models.load_model('pesos-5.tf')
-        d = proc_res(model.predict(gen_teste('../uploads/image.png')))
-
-        response = {'dic': d }
+        model = tf.keras.models.load_model('backend/tf/pesos-5.tf')
+        l = proc_res(model.predict(gen_teste('backend/uploads/image.png')))
         
-        print(response)
-        return response
+        json_string = json.dumps([ob.__dict__ for ob in l])
+        
+        print(json_string)
+        
+        return json_string
 
     except Exception as error:
         
