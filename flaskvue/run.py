@@ -24,7 +24,7 @@ app.config['JSON_AS_ASCII'] = False
 api = Api(app)
 CORS(app)
 
-UPLOAD_FOLDER = './uploads'
+UPLOAD_FOLDER = './backend/uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 #Index when receiving any request.See html

@@ -3,7 +3,6 @@ from funmodel import gen_teste, proc_res
 
 
 def load():
-
     try:
         model = tf.keras.models.load_model('pesos-5.tf')
         d = proc_res(model.predict(gen_teste('../uploads/image.png')))
