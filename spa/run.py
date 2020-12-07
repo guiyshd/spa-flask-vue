@@ -42,7 +42,7 @@ def uploadImage():
 
         response = model.load()
 
-        return make_response(jsonify({'result': 'success', 'response': response}))
+        return make_response(jsonify({'response': response}))
     else: 
         return make_response(jsonify({'result': 'invalid method'}), 400)
 
