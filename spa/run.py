@@ -1,8 +1,5 @@
-
 from flask import Flask, render_template, jsonify, request, make_response
 from backend.tf import model
-
-#CORS: Library for Ajax communication
 from flask_restful import Api, Resource
 from flask_cors import CORS 
 from random import *
@@ -49,4 +46,3 @@ def uploadImage():
 # app.run(host, port): Start flask server by specifying host and port
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
-
