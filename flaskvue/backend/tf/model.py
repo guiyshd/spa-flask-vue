@@ -1,5 +1,3 @@
-from django.shortcuts import render, HttpResponse
-from django.http import JsonResponse
 import tensorflow as tf
 from funmodel import gen_teste, proc_res
 
@@ -19,8 +17,8 @@ def load():
         
         erro = { 'Error found' : error }
         print(erro)
-        return render(request, 'list.html', erro)
+        return erro
 
 
 if __name__ == '__main__':
-    model.load()
+    load()
