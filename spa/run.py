@@ -1,7 +1,6 @@
 
-# render_template: Specify the template to refer to
-#jsonify: json output
 from flask import Flask, render_template, jsonify, request, make_response
+from backend.tf import model
 
 #CORS: Library for Ajax communication
 from flask_restful import Api, Resource
@@ -36,11 +35,14 @@ def index(path):
 @app.route('/classification', methods=['POST'])
 def uploadImage():
     if request.method == 'POST':
-        base64_png =  request.form['image']
+        base64_png = request.form['image']
         code = base64.b64decode(base64_png.split(',')[1]) 
         image_decoded = Image.open(BytesIO(code))
         image_decoded.save(Path(app.config['UPLOAD_FOLDER']) / 'image.png')
-        return make_response(jsonify({'result': 'success'}))
+
+        response = model.load()
+
+        return make_response(jsonify({'result': 'success', 'response': list(response)}))
     else: 
         return make_response(jsonify({'result': 'invalid method'}), 400)
 

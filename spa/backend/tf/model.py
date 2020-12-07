@@ -1,5 +1,5 @@
 import tensorflow as tf
-from funmodel import gen_teste, proc_res
+from .funmodel import gen_teste, proc_res
 
 
 def load():
