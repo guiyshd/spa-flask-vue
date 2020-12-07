@@ -6,9 +6,15 @@
       </div>
       <input type="file" class="file_input" name="photo" @change="onFileChange"  accept="image/*" />
       <button @click='onUploadImage'>Please judge the image ...</button>
+      <ul id="response">
+        <li v-for="item in modelResponse" :key="item.classe">
+          {{ item.classe }}
+        </li>
+      </ul>
     </div>
   </div>
 </template>
+
 
 <script>
 import axios from 'axios'
@@ -17,7 +23,8 @@ const API_URL = 'http://127.0.0.1:5000'
 export default {
   data () {
     return {
-      uploadedImage: ''
+      uploadedImage: '',
+      modelResponse: ''
     }
   },
   methods: {
@@ -40,7 +47,7 @@ export default {
       params.append('image', this.uploadedImage)
       //I am posting the data converted to FormData using Axios to Flask.
       axios.post(`${API_URL}/classification`, params).then(function (response) {
-        console.log(response)
+        this.modelResponse = response.data()
       })
     }
   }
